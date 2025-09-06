@@ -1,0 +1,6 @@
+torch
+torchvision
+segmentation-models-pytorch
+rasterio
+tqdm
+scikit-learn
