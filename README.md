@@ -13,7 +13,7 @@ Semantic Change Detection (SCD) in remote sensing imagery has emerged as a criti
 If you use this code or the findings in your research, please cite our paper:
 
 ```
-Coming Soon!
+Coming Soon
 ```
 
 ## Contact
