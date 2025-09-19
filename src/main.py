@@ -4,6 +4,12 @@ from torch.utils.data import Dataset, DataLoader
 import torch
 from train import train_model, save_training_history
 from models.dfanet import DFANet
+from models.hrscd1 import HRSCD1
+from models.hrscd2 import HRSCD2
+from models.hrscd3 import HRSCD3
+from models.hrscd4 import HRSCD4
+from models.bisrnet import BiSRNet
+from models.changemask import ChangeMask
 from test import test_model_pcc, save_test_metrics
 
 def main():
@@ -65,6 +71,24 @@ def main():
     if ARCHITECTURE == 'dfanet':
         model = DFANet(input_nbr=3,sem_classes=num_semantic_classes,
                 cd_classes=num_cd_classes,with_softmax=True,base_depth=16).to(device)
+    elif ARCHITECTURE == 'hrscd1':
+        model = HRSCD1(architecture='unet',encoder='resnet34',
+                input_channels=3,num_cd_classes=num_cd_classes,
+                num_semantic_classes=num_semantic_classes).to(device)
+    elif ARCHITECTURE == 'hrscd2':
+        model = HRSCD2(input_nbr=3, label_nbr=num_cd_classes).to(device)
+    elif ARCHITECTURE == 'hrscd3':
+        model = HRSCD3(input_nbr=3,sem_classes=num_semantic_classes,
+                cd_classes=num_cd_classes,with_softmax=True).to(device)
+    elif ARCHITECTURE == 'hrscd4':
+        model = HRSCD4(input_nbr=3,sem_classes=num_semantic_classes,
+                cd_classes=num_cd_classes,with_softmax=True).to(device)
+    elif ARCHITECTURE == 'bisrnet':
+        model = BiSRNet(input_nbr=3,sem_classes=num_semantic_classes,
+                cd_classes=num_cd_classes).to(device)
+    elif ARCHITECTURE == 'changemask':
+        model = ChangeMask(input_nbr=3, sem_classes=num_semantic_classes,
+                cd_classes=num_cd_classes, with_softmax=True).to(device)
 
     # Train model
     model2, history = train_model(model=model,train_loader=train_loader,val_loader=val_loader,
